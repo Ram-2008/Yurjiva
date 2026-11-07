@@ -1,0 +1,10 @@
+# YURJIVA
+A responsive technology studio site using Next.js App Router, TypeScript, React Three Fiber, Drei, Motion, GSAP, React Hook Form, Zod, Tailwind and Lucide.
+
+## Local development and Vercel
+Use Node 22. Run npm ci, copy .env.example to .env.local, and run npx next dev. Run npx next build and npx next start for production. Import this directory as a Next.js project in Vercel. vercel.json selects the Next build. Set NEXT_PUBLIC_SITE_URL to the public origin. Configure a verified Resend sender in CONTACT_FROM, and a server-only RESEND_API_KEY. Redeploy after updating public variables. Send a test inquiry and check the destination inbox. A successful Vercel form response indicates provider acceptance. No keys are required for browsing.
+ 
+The hosted Sites worker uses the same App Router components through Vinext. npm run build builds the worker. Its /api/contact route commits to the provisioned D1 database (inquiries table), limits four submissions per source address per hour, checks Origin and enforces a bounded JSON body. After saving a submission, the worker emails its details to yurjiva@gmail.com using RESEND_API_KEY and CONTACT_FROM from the hosted Site runtime settings. Set these on the Site and redeploy. Replying goes to the customer. When email is unconfigured or fails, the inquiry remains in D1 and the worker logs the inquiry ID and notification status. These records are not automatically emailed later. Access submissions through the database administrator. Vercel uses the email route with the same validation and honeypot. Configure Vercel Firewall rate limiting for POST /api/contact before public launch.
+
+## Content
+Edit lib/studio.ts for service descriptions, products and project references. The portfolio uses illustrative mockups. Add official social profiles through the optional public URL variables. Hero art in public/ is the fallback for disabled or unavailable WebGL. GPU scenes are lazy-loaded, capped in pixel density and stopped offscreen or under reduced motion.
